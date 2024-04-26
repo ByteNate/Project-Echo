@@ -7,7 +7,7 @@ This system is engineered for dynamic resource alignment and contingency plannin
 - Efficiently map resources to nodes based on operational directives.
 - Implement seamless transition protocols during resource downtime.
 
-# TA-Student Pairing System
+# Pairing System
 
 ## Technologies Used
 
