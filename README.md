@@ -11,11 +11,21 @@ This system is engineered for dynamic resource alignment and contingency plannin
 
 ## Technologies Used
 
-- Frontend: React, HTML, CSS, JavaScript
-- Backend: Node.js, Express.js
-- Database: MongoDB, Mongoose
-- Authentication: JWT (JSON Web Tokens)
-- Containerization: Docker
+- Frontend:
+  - React
+  - HTML
+  - CSS
+  - JavaScript
+- Backend:
+  - Node.js
+  - Express.js
+- Database:
+  - MongoDB
+  - Mongoose
+- Authentication:
+  - JWT (JSON Web Tokens)
+- Containerization:
+  - Docker
 
 ## Getting Started
 
