@@ -1,0 +1,33 @@
+{
+    "name": "Project-Echo",
+    "version": "1.0.0",
+    "description": "This system is engineered for dynamic resource alignment and contingency planning.",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js",
+      "dev": "nodemon index.js",
+      "build": "cd client && npm run build",
+      "client": "cd client && npm start",
+      "server": "nodemon index.js",
+      "dev:client": "cd client && npm run dev",
+      "dev:server": "nodemon index.js",
+      "dev:concurrent": "concurrently \"npm run dev:server\" \"npm run dev:client\""
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/ByteNate/Project-Echo"
+    },
+    "author": "ByteNate",
+    "license": "GPL-3.0",
+    "dependencies": {
+      "bcrypt": "^5.0.1",
+      "concurrently": "^7.0.0",
+      "dotenv": "^16.0.0",
+      "express": "^4.17.1",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^6.3.1"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.15"
+    }
+   }
