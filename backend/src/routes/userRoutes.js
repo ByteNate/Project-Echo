@@ -21,4 +21,10 @@ router.put('/availability', authMiddleware, userController.updateUserAvailabilit
 // Update user preferences
 router.put('/preferences', authMiddleware, userController.updateUserPreferences);
 
+// Get user profile
+router.get('/profile', authMiddleware, userController.getUserProfile);
+
+// Update user profile
+router.put('/profile', authMiddleware, userController.updateUserProfile);
+
 module.exports = router;
