@@ -18,13 +18,17 @@ const logout = () => {
 };
 
 const register = async (firstName, lastName, email, password) => {
-  const response = await axios.post(`${API_URL}/register`, {
-    firstName,
-    lastName,
-    email,
-    password,
-  });
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}/register`, {
+      firstName,
+      lastName,
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Registration failed');
+  }
 };
 
 const getCurrentUser = () => {
