@@ -6,6 +6,7 @@ function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -13,7 +14,7 @@ function Login() {
       await authService.login(email, password);
       history.push('/profile');
     } catch (error) {
-      console.error('Login failed:', error);
+      setError('Invalid email or password');
       // Display error message to the user
     }
   };
@@ -21,6 +22,7 @@ function Login() {
   return (
     <div>
       <h2>Login</h2>
+      {error && <p>{error}</p>}
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
