@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const connectDB = require('./config/database');
+const { errorHandler } = require('./middleware/errorMiddleware');
 
 // Load environment variables
 require('dotenv').config();
@@ -26,10 +27,7 @@ app.use('/api/pairings', require('./routes/pairingRoutes'));
 app.use('/api/substitutes', require('./routes/substituteRoutes'));
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal Server Error' });
-});
+app.use(errorHandler);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
