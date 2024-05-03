@@ -2,6 +2,19 @@ const User = require('../models/user');
 const Pairing = require('../models/pairing');
 const substituteSearch = require('../services/substituteSearch');
 
+const substituteService = require('../services/substituteService');
+
+// Create a new substitute
+exports.createSubstitute = async (req, res) => {
+  try {
+    const substitute = await substituteService.createSubstitute(req.body);
+    res.status(201).json(substitute);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create substitute' });
+  }
+};
+
 // Update TA availability
 exports.updateAvailability = async (req, res) => {
   try {
