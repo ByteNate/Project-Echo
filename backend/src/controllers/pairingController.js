@@ -1,27 +1,14 @@
 const Pairing = require('../models/pairing');
-const User = require('../models/user');
-const ClassSchedule = require('../models/classSchedule');
 const pairingAlgorithm = require('../services/pairingAlgorithm');
 
 // Generate TA-student pairings
 exports.generatePairings = async (req, res) => {
   try {
-    // Fetch all users (students and TAs)
-    const users = await User.find();
-
-    // Fetch all class schedules
-    const classSchedules = await ClassSchedule.find();
-
-    // Call the pairing algorithm to generate pairings
-    const generatedPairings = await pairingAlgorithm(users, classSchedules);
-
-    // Save the generated pairings to the database
-    const savedPairings = await Pairing.insertMany(generatedPairings);
-
-    res.status(200).json(savedPairings);
+    const generatedPairings = await pairingAlgorithm();
+    res.status(200).json(generatedPairings);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to generate pairings' });
   }
 };
 
