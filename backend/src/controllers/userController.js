@@ -1,6 +1,18 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const userService = require('../services/userService');
+
+// Create a new user
+exports.createUser = async (req, res) => {
+  try {
+    const user = await userService.createUser(req.body);
+    res.status(201).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create user' });
+  }
+};
 
 // User registration
 exports.registerUser = async (req, res) => {
