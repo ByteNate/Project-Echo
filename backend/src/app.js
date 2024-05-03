@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const connectDB = require('./config/database');
 const { errorHandler } = require('./middleware/errorMiddleware');
+const { requestLogger, responseLogger, errorLogger } = require('./middleware/loggingMiddleware');
 
 // Load environment variables
 require('dotenv').config();
@@ -20,11 +21,18 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(helmet());
 
+// Logging middleware
+app.use(requestLogger);
+app.use(responseLogger);
+
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/classSchedules', require('./routes/classScheduleRoutes'));
 app.use('/api/pairings', require('./routes/pairingRoutes'));
 app.use('/api/substitutes', require('./routes/substituteRoutes'));
+
+// Error logging middleware
+app.use(errorLogger);
 
 // Error handling middleware
 app.use(errorHandler);
