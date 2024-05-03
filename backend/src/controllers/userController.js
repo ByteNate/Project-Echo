@@ -2,6 +2,20 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
+const authService = require('../services/authService');
+
+// User login
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await authService.authenticateUser(email, password);
+    const token = authService.generateToken(user);
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({ error: 'Authentication failed' });
+  }
+};
 
 // Create a new user
 exports.createUser = async (req, res) => {
