@@ -1,7 +1,3 @@
-const User = require('../models/user');
-const Pairing = require('../models/pairing');
-const substituteSearch = require('../services/substituteSearch');
-
 const substituteService = require('../services/substituteService');
 
 // Create a new substitute
@@ -20,11 +16,7 @@ exports.updateAvailability = async (req, res) => {
   try {
     const { userId, availability } = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { availability },
-      { new: true }
-    );
+    const updatedUser = await substituteService.updateAvailability(userId, availability);
 
     if (!updatedUser) {
       return res.status(404).json({ error: 'User not found' });
@@ -42,7 +34,7 @@ exports.getAvailableSubstitutes = async (req, res) => {
   try {
     const { classScheduleId, date } = req.query;
 
-    const availableSubstitutes = await substituteSearch(classScheduleId, date);
+    const availableSubstitutes = await substituteService.getAvailableSubstitutes(classScheduleId, date);
 
     res.status(200).json(availableSubstitutes);
   } catch (error) {
@@ -56,11 +48,7 @@ exports.assignSubstitute = async (req, res) => {
   try {
     const { pairingId, substituteId } = req.body;
 
-    const updatedPairing = await Pairing.findByIdAndUpdate(
-      pairingId,
-      { ta: substituteId },
-      { new: true }
-    );
+    const updatedPairing = await substituteService.assignSubstitute(pairingId, substituteId);
 
     if (!updatedPairing) {
       return res.status(404).json({ error: 'Pairing not found' });
