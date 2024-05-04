@@ -30,21 +30,21 @@ const generatePairings = async () => {
       // Iterate over available students
       for (const student of availableStudents) {
         // Find the closest available TA to the student
-        const closestTA = availableTAs.reduce((closest, ta) => {
-          const taDistance = calculateDistance(student.location, ta.location);
-          const closestDistance = calculateDistance(student.location, closest.location);
-          return taDistance < closestDistance ? ta : closest;
-        });
+        const closestTA = findClosestTA(student, availableTAs);
 
-        // Create a new pairing
-        pairings.push({
-          classSchedule: classSchedule._id,
-          ta: closestTA._id,
-          student: student._id,
-        });
+        if (closestTA) {
+          // Create a new pairing
+          pairings.push({
+            classSchedule: classSchedule._id,
+            ta: closestTA._id,
+            student: student._id,
+          });
 
-        // Update the workload of the assigned TA
-        closestTA.pairings.push(pairings[pairings.length - 1]);
+          // Update the workload of the assigned TA
+          closestTA.pairings.push(pairings[pairings.length - 1]);
+        } else {
+          console.warn(`No available TA found for student ${student._id} in class schedule ${classSchedule._id}`);
+        }
       }
     }
 
@@ -58,6 +58,22 @@ const generatePairings = async () => {
   }
 };
 
+// Helper function to find the closest available TA to a student
+const findClosestTA = (student, availableTAs) => {
+  let closestTA = null;
+  let minDistance = Infinity;
+
+  for (const ta of availableTAs) {
+    const distance = calculateDistance(student.location, ta.location);
+    if (distance < minDistance) {
+      closestTA = ta;
+      minDistance = distance;
+    }
+  }
+
+  return closestTA;
+};
+
 // Helper function to calculate the distance between two locations
 const calculateDistance = (location1, location2) => {
   // Implement the distance calculation logic based on the location format
@@ -67,4 +83,4 @@ const calculateDistance = (location1, location2) => {
   return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 };
 
-module.exports = generatePairings;
+module.exports = gener
