@@ -25,7 +25,7 @@ exports.updateAvailability = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to update availability' });
   }
 };
 
@@ -39,7 +39,7 @@ exports.getAvailableSubstitutes = async (req, res) => {
     res.status(200).json(availableSubstitutes);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to retrieve available substitutes' });
   }
 };
 
@@ -57,6 +57,6 @@ exports.assignSubstitute = async (req, res) => {
     res.status(200).json(updatedPairing);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to assign substitute' });
   }
 };

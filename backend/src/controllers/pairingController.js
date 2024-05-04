@@ -51,7 +51,7 @@ exports.updatePairing = async (req, res) => {
     res.status(200).json(updatedPairing);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to update pairing' });
   }
 };
 
@@ -65,6 +65,6 @@ exports.deletePairing = async (req, res) => {
     res.status(200).json({ message: 'Pairing deleted successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Failed to delete pairing' });
   }
 };
