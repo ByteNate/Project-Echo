@@ -4,12 +4,12 @@ const User = require('../backend/src/models/user');
 const ClassSchedule = require('../backend/src/models/classSchedule');
 const Pairing = require('../backend/src/models/pairing');
 
+mongoose.set('strictQuery', false);
+
 // Connect to the database
 mongoose.connect(config.db.url, config.db.options)
   .then(() => {
     console.log('Connected to the database');
-    // Set strictQuery to false to prepare for Mongoose 7
-    mongoose.set('strictQuery', false);
     // Seed initial data
     return seedData();
   })
