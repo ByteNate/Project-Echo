@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
+import { config } from '../config/frontend';
 
 const Register = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -14,17 +15,16 @@ const Register = () => {
     e.preventDefault();
     try {
       await authService.register(firstName, lastName, email, password);
-      history.push('/login');
+      navigate(config.routeSettings.login);
     } catch (error) {
-      setError('Registration failed: ' + error.message);
-      // Display error message to the user
+      setError('Registration failed. Please try again.');
     }
   };
 
   return (
     <div>
       <h2>Register</h2>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleRegister}>
         <div>
           <label>First Name:</label>
