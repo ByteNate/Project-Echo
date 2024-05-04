@@ -32,7 +32,7 @@ The TA Pairing System is a web application that helps manage and optimize the pa
 [git clone https://github.com/your-username/ta-pairing-system.git](https://github.com/ByteNate/Project-Echo)
 
 2. Navigate to the project directory:
-cd ta-pairing-system
+cd Project-Echo
 
 3. Install the dependencies:
 npm install
