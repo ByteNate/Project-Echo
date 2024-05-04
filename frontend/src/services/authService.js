@@ -3,14 +3,18 @@ import axios from 'axios';
 const API_URL = 'http://localhost:3000/api/users';
 
 const login = async (email, password) => {
-  const response = await axios.post(`${API_URL}/login`, {
-    email,
-    password,
-  });
-  if (response.data.token) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+  try {
+    const response = await axios.post(`${API_URL}/login`, {
+      email,
+      password,
+    });
+    if (response.data.token) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.error || 'Login failed');
   }
-  return response.data;
 };
 
 const logout = () => {
@@ -27,7 +31,7 @@ const register = async (firstName, lastName, email, password) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(error.response.data.message || 'Registration failed');
+    throw new Error(error.response?.data?.error || 'Registration failed');
   }
 };
 
