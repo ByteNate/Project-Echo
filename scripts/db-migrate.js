@@ -1,3 +1,4 @@
+// scripts/db-migrate.js
 const mongoose = require('mongoose');
 const config = require('../config/backend');
 
@@ -24,9 +25,25 @@ async function migrateDatabase() {
     // - Update data
 
     console.log('Database migration completed successfully');
-    process.exit(0);
+    mongoose.disconnect()
+      .then(() => {
+        console.log('Disconnected from the database');
+        process.exit(0);
+      })
+      .catch((error) => {
+        console.error('Error disconnecting from the database:', error);
+        process.exit(1);
+      });
   } catch (error) {
     console.error('Error migrating the database:', error);
-    process.exit(1);
+    mongoose.disconnect()
+      .then(() => {
+        console.log('Disconnected from the database');
+        process.exit(1);
+      })
+      .catch((error) => {
+        console.error('Error disconnecting from the database:', error);
+        process.exit(1);
+      });
   }
 }

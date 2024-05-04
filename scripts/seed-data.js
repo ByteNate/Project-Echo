@@ -1,3 +1,4 @@
+// scripts/seed-data.js
 const mongoose = require('mongoose');
 const config = require('../config/backend');
 const User = require('../backend/src/models/user');
@@ -46,9 +47,25 @@ async function seedData() {
     console.log('Pairings seeded successfully');
 
     console.log('Data seeding completed successfully');
-    process.exit(0);
+    mongoose.disconnect()
+      .then(() => {
+        console.log('Disconnected from the database');
+        process.exit(0);
+      })
+      .catch((error) => {
+        console.error('Error disconnecting from the database:', error);
+        process.exit(1);
+      });
   } catch (error) {
     console.error('Error seeding data:', error);
-    process.exit(1);
+    mongoose.disconnect()
+      .then(() => {
+        console.log('Disconnected from the database');
+        process.exit(1);
+      })
+      .catch((error) => {
+        console.error('Error disconnecting from the database:', error);
+        process.exit(1);
+      });
   }
 }
