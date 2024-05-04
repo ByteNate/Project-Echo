@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
 import { config } from '../config/frontend';
 console.log(config.appName);
 console.log(config.routeSettings.login);
 
 function Login() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -15,17 +15,16 @@ function Login() {
     e.preventDefault();
     try {
       await authService.login(email, password);
-      history.push('/profile');
+      navigate(config.routeSettings.profile);
     } catch (error) {
-      setError('Invalid email or password');
-      // Display error message to the user
+      setError('Invalid email or password. Please try again.');
     }
   };
 
   return (
     <div>
       <h2>Login</h2>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
