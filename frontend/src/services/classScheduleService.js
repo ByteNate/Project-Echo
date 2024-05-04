@@ -1,36 +1,77 @@
 import axios from 'axios';
 import authHeader from './authHeader';
+import { config } from '../config/frontend';
 
-const API_URL = 'http://localhost:3000/api/classSchedules';
+const API_URL = config.apiBaseUrl + '/classSchedules';
 
 const createClassSchedule = async (classScheduleData) => {
-  const response = await axios.post(API_URL, classScheduleData, {
-    headers: authHeader(),
-  });
-  return response.data;
+  try {
+    const response = await axios.post(API_URL, classScheduleData, {
+      headers: authHeader(),
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Failed to create class schedule. Please try again.');
+    }
+  }
 };
 
 const getAllClassSchedules = async () => {
-  const response = await axios.get(API_URL, { headers: authHeader() });
-  return response.data;
+  try {
+    const response = await axios.get(API_URL, { headers: authHeader() });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Failed to retrieve class schedules. Please try again.');
+    }
+  }
 };
 
 const getClassScheduleById = async (id) => {
-  const response = await axios.get(`${API_URL}/${id}`, {
-    headers: authHeader(),
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/${id}`, {
+      headers: authHeader(),
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Failed to retrieve class schedule. Please try again.');
+    }
+  }
 };
 
 const updateClassSchedule = async (id, classScheduleData) => {
-  const response = await axios.put(`${API_URL}/${id}`, classScheduleData, {
-    headers: authHeader(),
-  });
-  return response.data;
+  try {
+    const response = await axios.put(`${API_URL}/${id}`, classScheduleData, {
+      headers: authHeader(),
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Failed to update class schedule. Please try again.');
+    }
+  }
 };
 
 const deleteClassSchedule = async (id) => {
-  await axios.delete(`${API_URL}/${id}`, { headers: authHeader() });
+  try {
+    await axios.delete(`${API_URL}/${id}`, { headers: authHeader() });
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Failed to delete class schedule. Please try again.');
+    }
+  }
 };
 
 const classScheduleService = {
