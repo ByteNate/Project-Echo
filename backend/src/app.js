@@ -5,6 +5,11 @@ const helmet = require('helmet');
 const connectDB = require('./config/database');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { requestLogger, responseLogger, errorLogger } = require('./middleware/loggingMiddleware');
+const config = require('../config/backend');
+
+app.listen(config.port, () => {
+  console.log(`Server is running on port ${config.port}`);
+});
 
 // Load environment variables
 require('dotenv').config();
