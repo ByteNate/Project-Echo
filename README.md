@@ -29,3 +29,45 @@ The TA Pairing System is a web application that helps manage and optimize the pa
 ### Installation
 
 1. Clone the repository:
+[git clone https://github.com/your-username/ta-pairing-system.git](https://github.com/ByteNate/Project-Echo)
+
+2. Navigate to the project directory:
+cd ta-pairing-system
+
+3. Install the dependencies:
+npm install
+
+4. Set up the environment variables:
+- Create a `.env` file in the root directory.
+- Provide the necessary environment variables (e.g., database connection URI, JWT secret).
+
+5. Start the development server:
+npm run dev
+
+6. Open your browser and visit `http://localhost:3000` to access the application.
+
+### Docker Deployment
+
+1. Build the Docker images:
+docker-compose build
+
+2. Start the containers:
+docker-compose up
+
+3. Access the application at `http://localhost:3000`.
+
+## Usage
+
+- Register as a TA or administrator.
+- Log in to the system using your credentials.
+- Update your profile information and preferences.
+- Manage class schedules and TA-student pairings.
+- Handle substitute TA assignments when necessary.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to the project, please follow the [contribution guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE).
