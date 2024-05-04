@@ -27,9 +27,9 @@ jobs:
 
       - name: Deploy to production
         env:
-          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-          HOST: ${{ secrets.HOST }}
+          SSH_USERNAME: Nate
+          SSH_PASSWORD: 1121
+          HOST: localhost
         run: |
           # Add your deployment steps here
           # For example:
