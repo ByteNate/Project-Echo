@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -19,15 +19,43 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <ProtectedRoute path="/profile" component={Profile} />
-          <ProtectedRoute path="/class-schedule" component={ClassSchedule} />
-          <ProtectedRoute path="/pairing" component={Pairing} />
-          <ProtectedRoute path="/substitute" component={Substitute} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/class-schedule"
+            element={
+              <ProtectedRoute>
+                <ClassSchedule />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pairing"
+            element={
+              <ProtectedRoute>
+                <Pairing />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/substitute"
+            element={
+              <ProtectedRoute>
+                <Substitute />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </div>
     </Router>
   );
