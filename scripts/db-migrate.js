@@ -2,15 +2,19 @@
 const mongoose = require('mongoose');
 const config = require('../config/backend');
 
+// Create a logger instance
+const logger = require('../backend/src/utils/logger');
+
 // Connect to the database
-mongoose.connect(config.db.url, config.db.options)
+mongoose
+  .connect(config.db.url, config.db.options)
   .then(() => {
-    console.log('Connected to the database');
+    logger.info('Connected to the database');
     // Perform database migration
     return migrateDatabase();
   })
   .catch((error) => {
-    console.error('Error connecting to the database:', error);
+    logger.error('Error connecting to the database:', error);
     process.exit(1);
   });
 
@@ -24,25 +28,78 @@ async function migrateDatabase() {
     // - Add indexes
     // - Update data
 
-    console.log('Database migration completed successfully');
-    mongoose.disconnect()
+    // Migration step 1: Create a new collection
+    await mongoose.connection.createCollection('newCollection', {
+      validator: {
+        $jsonSchema: {
+          bsonType: 'object',
+          required: ['name', 'age'],
+          properties: {
+            name: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+            },
+            age: {
+              bsonType: 'int',
+              minimum: 0,
+              maximum: 120,
+              description: 'must be an integer in [ 0, 120 ] and is required',
+            },
+          },
+        },
+      },
+    });
+    logger.info('Migration step 1 completed: Created new collection');
+
+    // Migration step 2: Modify an existing collection
+    await mongoose.connection.collection('existingCollection').updateMany(
+      {},
+      {
+        $set: {
+          updatedField: true,
+        },
+      }
+    );
+    logger.info('Migration step 2 completed: Modified existing collection');
+
+    // Migration step 3: Add an index
+    await mongoose.connection
+      .collection('existingCollection')
+      .createIndex({ name: 1 }, { unique: true });
+    logger.info('Migration step 3 completed: Added an index');
+
+    // Migration step 4: Update data
+    await mongoose.connection.collection('existingCollection').updateMany(
+      { age: { $exists: false } },
+      {
+        $set: {
+          age: 0,
+        },
+      }
+    );
+    logger.info('Migration step 4 completed: Updated data');
+
+    logger.info('Database migration completed successfully');
+    mongoose
+      .disconnect()
       .then(() => {
-        console.log('Disconnected from the database');
+        logger.info('Disconnected from the database');
         process.exit(0);
       })
       .catch((error) => {
-        console.error('Error disconnecting from the database:', error);
+        logger.error('Error disconnecting from the database:', error);
         process.exit(1);
       });
   } catch (error) {
-    console.error('Error migrating the database:', error);
-    mongoose.disconnect()
+    logger.error('Error migrating the database:', error);
+    mongoose
+      .disconnect()
       .then(() => {
-        console.log('Disconnected from the database');
+        logger.info('Disconnected from the database');
         process.exit(1);
       })
       .catch((error) => {
-        console.error('Error disconnecting from the database:', error);
+        logger.error('Error disconnecting from the database:', error);
         process.exit(1);
       });
   }
