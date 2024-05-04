@@ -1,4 +1,4 @@
-module.exports = {
+export const config = {
     // Base URL for the backend API
     apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3000/api',
   
