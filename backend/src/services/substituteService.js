@@ -56,4 +56,43 @@ exports.updateSubstitute = async (substituteId, updatedData) => {
 exports.deleteSubstitute = async (substituteId) => {
   try {
     const substitute = await Substitute.findByIdAndDelete(substituteId);
-    i
+    if (!substitute) {
+      throw new Error('Substitute not found');
+    }
+    return substitute;
+  } catch (error) {
+    throw new Error('Failed to delete substitute');
+  }
+};
+
+// Search for available substitutes
+exports.substituteSearch = async (classScheduleId, date) => {
+  try {
+    // Find the class schedule
+    const classSchedule = await ClassSchedule.findById(classScheduleId);
+    if (!classSchedule) {
+      throw new Error('Class schedule not found');
+    }
+
+    // Find the pairing for the given class schedule and date
+    const pairing = await Pairing.findOne({
+      classSchedule: classScheduleId,
+      date: date,
+    });
+
+    if (!pairing) {
+      throw new Error('Pairing not found');
+    }
+
+    // Find available TAs who are not assigned to the pairing
+    const availableSubstitutes = await User.find({
+      role: 'TA',
+      available: true,
+      _id: { $ne: pairing.ta },
+    });
+
+    return availableSubstitutes;
+  } catch (error) {
+    throw new Error('Failed to search for substitutes');
+  }
+};
