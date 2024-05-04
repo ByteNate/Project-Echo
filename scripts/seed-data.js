@@ -8,6 +8,8 @@ const Pairing = require('../backend/src/models/pairing');
 mongoose.connect(config.db.url, config.db.options)
   .then(() => {
     console.log('Connected to the database');
+    // Set strictQuery to false to prepare for Mongoose 7
+    mongoose.set('strictQuery', false);
     // Seed initial data
     return seedData();
   })
