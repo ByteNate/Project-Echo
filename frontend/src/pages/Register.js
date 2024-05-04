@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import userService from '../services/userService';
+import authService from '../services/authService';
 
 const Register = () => {
   const history = useHistory();
@@ -16,7 +16,7 @@ const Register = () => {
       await authService.register(firstName, lastName, email, password);
       history.push('/login');
     } catch (error) {
-      setError.error('Registration failed:', error);
+      setError('Registration failed: ' + error.message);
       // Display error message to the user
     }
   };
@@ -66,6 +66,6 @@ const Register = () => {
       </form>
     </div>
   );
-}
+};
 
 export default Register;
