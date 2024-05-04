@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authService from '../services/authService';
+import { config } from '../config/frontend';
+console.log(config.appName);
+console.log(config.routeSettings.login);
 
 function Login() {
   const history = useHistory();

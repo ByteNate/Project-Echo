@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import authService from '../services/authService';
+import { config } from '../config/frontend';
+console.log(config.appName);
+console.log(config.routeSettings.login);
 
 const Navbar = () => {
   const currentUser = authService.getCurrentUser();
