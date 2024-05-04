@@ -55,6 +55,9 @@ exports.updateClassSchedule = async (req, res) => {
         location,
       }
     );
+    if (!updatedClassSchedule) {
+      return res.status(404).json({ error: 'Class schedule not found' });
+    }
     res.status(200).json(updatedClassSchedule);
   } catch (error) {
     console.error(error);
@@ -65,7 +68,10 @@ exports.updateClassSchedule = async (req, res) => {
 // Delete a class schedule
 exports.deleteClassSchedule = async (req, res) => {
   try {
-    await classScheduleService.deleteClassSchedule(req.params.id);
+    const deletedClassSchedule = await classScheduleService.deleteClassSchedule(req.params.id);
+    if (!deletedClassSchedule) {
+      return res.status(404).json({ error: 'Class schedule not found' });
+    }
     res.status(200).json({ message: 'Class schedule deleted successfully' });
   } catch (error) {
     console.error(error);
