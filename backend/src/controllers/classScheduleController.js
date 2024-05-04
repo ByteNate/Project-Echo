@@ -20,7 +20,7 @@ exports.createClassSchedule = async (req, res) => {
 // Get all class schedules
 exports.getAllClassSchedules = async (req, res) => {
   try {
-    const classSchedules = await ClassSchedule.find();
+    const classSchedules = await classScheduleService.getAllClassSchedules();
     res.status(200).json(classSchedules);
   } catch (error) {
     console.error(error);
@@ -31,7 +31,7 @@ exports.getAllClassSchedules = async (req, res) => {
 // Get a specific class schedule by ID
 exports.getClassScheduleById = async (req, res) => {
   try {
-    const classSchedule = await ClassSchedule.findById(req.params.id);
+    const classSchedule = await classScheduleService.getClassScheduleById(req.params.id);
     if (!classSchedule) {
       return res.status(404).json({ error: 'Class schedule not found' });
     }
