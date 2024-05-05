@@ -4,8 +4,6 @@ const config = require('../config/backend');
 const User = require('../backend/src/models/user');
 const ClassSchedule = require('../backend/src/models/classSchedule');
 const Pairing = require('../backend/src/models/pairing');
-
-// Create a logger instance
 const logger = require('../backend/src/utils/logger');
 
 mongoose.set('strictQuery', false);
