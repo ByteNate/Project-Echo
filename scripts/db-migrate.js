@@ -28,56 +28,29 @@ async function migrateDatabase() {
     // - Add indexes
     // - Update data
 
-    // Migration step 1: Create a new collection
-    await mongoose.connection.createCollection('newCollection', {
-      validator: {
-        $jsonSchema: {
-          bsonType: 'object',
-          required: ['name', 'age'],
-          properties: {
-            name: {
-              bsonType: 'string',
-              description: 'must be a string and is required',
-            },
-            age: {
-              bsonType: 'int',
-              minimum: 0,
-              maximum: 120,
-              description: 'must be an integer in [ 0, 120 ] and is required',
-            },
-          },
-        },
-      },
-    });
-    logger.info('Migration step 1 completed: Created new collection');
+    // Migration step 1: Create indexes for User collection
+    await mongoose.connection.collection('users').createIndex({ email: 1 }, { unique: true });
+    logger.info('Migration step 1 completed: Created indexes for User collection');
 
-    // Migration step 2: Modify an existing collection
-    await mongoose.connection.collection('existingCollection').updateMany(
+    // Migration step 2: Create indexes for ClassSchedule collection
+    await mongoose.connection.collection('classschedules').createIndex({ course: 1, startTime: 1, endTime: 1 });
+    logger.info('Migration step 2 completed: Created indexes for ClassSchedule collection');
+
+    // Migration step 3: Create indexes for Pairing collection
+    await mongoose.connection.collection('pairings').createIndex({ classSchedule: 1, ta: 1, student: 1 });
+    logger.info('Migration step 3 completed: Created indexes for Pairing collection');
+
+    // Migration step 4: Add a new field to User collection
+    await mongoose.connection.collection('users').updateMany(
       {},
       {
         $set: {
-          updatedField: true,
+          resetPasswordToken: null,
+          resetPasswordExpires: null,
         },
       }
     );
-    logger.info('Migration step 2 completed: Modified existing collection');
-
-    // Migration step 3: Add an index
-    await mongoose.connection
-      .collection('existingCollection')
-      .createIndex({ name: 1 }, { unique: true });
-    logger.info('Migration step 3 completed: Added an index');
-
-    // Migration step 4: Update data
-    await mongoose.connection.collection('existingCollection').updateMany(
-      { age: { $exists: false } },
-      {
-        $set: {
-          age: 0,
-        },
-      }
-    );
-    logger.info('Migration step 4 completed: Updated data');
+    logger.info('Migration step 4 completed: Added new fields to User collection');
 
     logger.info('Database migration completed successfully');
     mongoose

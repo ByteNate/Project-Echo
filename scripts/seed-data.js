@@ -53,8 +53,13 @@ async function seedData() {
         role: 'STUDENT',
       },
     ];
-    const seededUsers = await User.insertMany(users);
-    logger.info('Users seeded successfully');
+    try {
+      const seededUsers = await User.insertMany(users);
+      logger.info('Users seeded successfully');
+    } catch (error) {
+      logger.error('Error seeding users:', error);
+      throw error;
+    }
 
     // Seed class schedules
     const classSchedules = [
@@ -71,8 +76,13 @@ async function seedData() {
         location: 'Room 202',
       },
     ];
-    const seededClassSchedules = await ClassSchedule.insertMany(classSchedules);
-    logger.info('Class schedules seeded successfully');
+    try {
+      const seededClassSchedules = await ClassSchedule.insertMany(classSchedules);
+      logger.info('Class schedules seeded successfully');
+    } catch (error) {
+      logger.error('Error seeding class schedules:', error);
+      throw error;
+    }
 
     // Seed pairings
     const pairings = [
@@ -82,31 +92,22 @@ async function seedData() {
         student: seededUsers[2]._id,
       },
     ];
-    await Pairing.insertMany(pairings);
-    logger.info('Pairings seeded successfully');
+    try {
+      await Pairing.insertMany(pairings);
+      logger.info('Pairings seeded successfully');
+    } catch (error) {
+      logger.error('Error seeding pairings:', error);
+      throw error;
+    }
 
     logger.info('Data seeding completed successfully');
-    mongoose
-      .disconnect()
-      .then(() => {
-        logger.info('Disconnected from the database');
-        process.exit(0);
-      })
-      .catch((error) => {
-        logger.error('Error disconnecting from the database:', error);
-        process.exit(1);
-      });
+    await mongoose.disconnect();
+    logger.info('Disconnected from the database');
+    process.exit(0);
   } catch (error) {
     logger.error('Error seeding data:', error);
-    mongoose
-      .disconnect()
-      .then(() => {
-        logger.info('Disconnected from the database');
-        process.exit(1);
-      })
-      .catch((error) => {
-        logger.error('Error disconnecting from the database:', error);
-        process.exit(1);
-      });
+    await mongoose.disconnect();
+    logger.info('Disconnected from the database');
+    process.exit(1);
   }
 }

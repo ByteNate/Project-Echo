@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import authService from '../services/authService';
 import { config } from '../config/frontend';
-console.log(config.appName);
-console.log(config.routeSettings.login);
 
 const Navbar = () => {
   const currentUser = authService.getCurrentUser();
@@ -18,12 +16,12 @@ const Navbar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to={config.routeSettings.home}>Home</Link>
         </li>
         {currentUser ? (
           <>
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to={config.routeSettings.profile}>Profile</Link>
             </li>
             <li>
               <a href="#" onClick={handleLogout}>
@@ -34,10 +32,10 @@ const Navbar = () => {
         ) : (
           <>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to={config.routeSettings.login}>Login</Link>
             </li>
             <li>
-              <Link to="/register">Register</Link>
+              <Link to={config.routeSettings.register}>Register</Link>
             </li>
           </>
         )}

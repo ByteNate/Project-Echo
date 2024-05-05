@@ -11,8 +11,6 @@ import Pairing from './pages/Pairing';
 import Substitute from './pages/Substitute';
 
 import { config } from './config/frontend';
-console.log(config.appName);
-console.log(config.routeSettings.login);
 
 function App() {
   return (

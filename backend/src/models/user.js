@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['TA', 'ADMIN'],
+    enum: ['TA', 'ADMIN', 'STUDENT'],
     default: 'TA',
   },
   profileImage: {
@@ -56,11 +56,6 @@ const userSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
-  },
-  role: {
-    type: String,
-    enum: ['TA', 'ADMIN', 'STUDENT'],
-    default: 'TA',
   },
 });
 
