@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const connectDB = require('./config/database');
+const connectDB = require('../config/database');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { requestLogger, responseLogger, errorLogger } = require('./middleware/loggingMiddleware');
-const config = require('../config/backend');
+const config = require('../../config/backend');
 
 // Load environment variables
 require('dotenv').config();
