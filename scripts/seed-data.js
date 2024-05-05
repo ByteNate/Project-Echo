@@ -53,7 +53,7 @@ async function seedData() {
         role: 'STUDENT',
       },
     ];
-    await User.insertMany(users);
+    const seededUsers = await User.insertMany(users);
     logger.info('Users seeded successfully');
 
     // Seed class schedules
@@ -78,8 +78,8 @@ async function seedData() {
     const pairings = [
       {
         classSchedule: seededClassSchedules[0]._id,
-        ta: users[1]._id,
-        student: users[2]._id,
+        ta: seededUsers[1]._id,
+        student: seededUsers[2]._id,
       },
     ];
     await Pairing.insertMany(pairings);
