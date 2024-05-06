@@ -36,6 +36,11 @@ app.use('/api/classSchedules', require('./routes/classScheduleRoutes'));
 app.use('/api/pairings', require('./routes/pairingRoutes'));
 app.use('/api/substitutes', require('./routes/substituteRoutes'));
 
+// Add a route for the root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to the TA Pairing System!');
+});
+
 // Error logging middleware
 app.use(errorLogger);
 
