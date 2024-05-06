@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const mongoose = require('mongoose');
 const connectDB = require('../config/database');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const { requestLogger, responseLogger, errorLogger } = require('./middleware/loggingMiddleware');
@@ -12,6 +13,9 @@ require('dotenv').config();
 
 // Create Express app
 const app = express();
+
+// Set strictQuery to false
+mongoose.set('strictQuery', false);
 
 // Connect to MongoDB
 connectDB();
