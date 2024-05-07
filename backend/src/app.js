@@ -30,6 +30,11 @@ app.use(helmet());
 app.use(requestLogger);
 app.use(responseLogger);
 
+// Ignore favicon request
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
+
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/classSchedules', require('./routes/classScheduleRoutes'));
