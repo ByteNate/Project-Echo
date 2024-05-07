@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -41,9 +42,12 @@ app.use('/api/classSchedules', require('./routes/classScheduleRoutes'));
 app.use('/api/pairings', require('./routes/pairingRoutes'));
 app.use('/api/substitutes', require('./routes/substituteRoutes'));
 
-// Add a route for the root URL
-app.get('/', (req, res) => {
-  res.send('Welcome to the TA Pairing System!');
+// Serve frontend files
+app.use(express.static(path.join(__dirname, '../../frontend/build')));
+
+// Catch-all route to serve frontend for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
 });
 
 // Error logging middleware
