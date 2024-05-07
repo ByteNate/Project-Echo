@@ -15,7 +15,7 @@ exports.generatePairings = async (req, res) => {
 // Get all pairings
 exports.getAllPairings = async (req, res) => {
   try {
-    const pairings = await Pairing.find();
+    const pairings = await Pairing.find().populate('student').populate('ta').populate('classSchedule');
     res.status(200).json(pairings);
   } catch (error) {
     console.error(error);

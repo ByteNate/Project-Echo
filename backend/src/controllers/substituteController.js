@@ -31,6 +31,7 @@ exports.updateAvailability = async (req, res) => {
   }
 };
 
+
 // ... other code ...
 
 // Get available substitutes
