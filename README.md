@@ -29,7 +29,7 @@ The TA Pairing System is a web application that helps manage and optimize the pa
 ### Installation
 
 1. Clone the repository:
-[git clone https://github.com/your-username/ta-pairing-system.git](https://github.com/ByteNate/Project-Echo)
+[git clone https://github.com/Byte-Nate/ta-pairing-system.git](https://github.com/ByteNate/Project-Echo)
 
 2. Navigate to the project directory:
 cd Project-Echo
