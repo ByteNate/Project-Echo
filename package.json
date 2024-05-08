@@ -4,16 +4,15 @@
     "description": "This system is engineered for dynamic resource alignment and contingency planning.",
     "main": "index.js",
     "scripts": {
-        "start": "node backend/src/app.js", 
-        "dev": "nodemon backend/src/app.js", 
+        "start": "node backend/src/app.js",
+        "dev": "nodemon backend/src/app.js",
         "build": "cd frontend && npm run build",
-        "client": "cd frontend && npm start", 
-        "server": "nodemon backend/src/app.js", 
-        "dev:client": "cd frontend && npm run start", 
+        "client": "cd frontend && npm start",
+        "server": "nodemon backend/src/app.js",
+        "dev:client": "cd frontend && npm run start",
         "dev:server": "nodemon backend/src/app.js",
-        "dev:concurrent": "concurrently \"npm run dev:server\" \"npm run dev:client\"" 
+        "dev:concurrent": "concurrently \"npm run dev:server\" \"npm run dev:client\""
     },
-       
     "repository": {
         "type": "git",
         "url": "https://github.com/ByteNate/Project-Echo"
@@ -34,6 +33,7 @@
         "morgan": "^1.10.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
+        "react-scripts": "^5.0.1",
         "winston": "^3.13.0"
     },
     "devDependencies": {
