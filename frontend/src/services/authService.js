@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { config } from '../config/frontend';
 
-const API_URL = 'http://localhost:3000/api/users';
+const API_URL = config.apiBaseUrl + '/users';
 
 const login = async (email, password) => {
   try {
@@ -13,7 +14,11 @@ const login = async (email, password) => {
     }
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || 'Login failed');
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Login failed. Please try again.');
+    }
   }
 };
 
@@ -31,7 +36,11 @@ const register = async (firstName, lastName, email, password) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || 'Registration failed');
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error('Registration failed. Please try again.');
+    }
   }
 };
 

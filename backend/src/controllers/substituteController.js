@@ -12,6 +12,8 @@ exports.createSubstitute = async (req, res) => {
 };
 
 // Update TA availability
+// ... other code ...
+
 exports.updateAvailability = async (req, res) => {
   try {
     const { userId, availability } = req.body;
@@ -28,6 +30,9 @@ exports.updateAvailability = async (req, res) => {
     res.status(500).json({ error: 'Failed to update availability' });
   }
 };
+
+
+// ... other code ...
 
 // Get available substitutes
 exports.getAvailableSubstitutes = async (req, res) => {

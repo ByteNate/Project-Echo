@@ -14,7 +14,7 @@ module.exports = {
 
   // JWT authentication settings
   jwt: {
-    secret: process.env.JWT_SECRET || 'ta_pairing_system_jwt_secret_key',
+    secret: process.env.JWT_SECRET || 'your_jwt_secret_key',
     expiresIn: '1h',
   },
 
@@ -35,9 +35,9 @@ module.exports = {
   email: {
     service: process.env.EMAIL_SERVICE || 'Gmail',
     auth: {
-      user: process.env.EMAIL_USER || 'tapairing@gmail.com',
-      pass: process.env.EMAIL_PASSWORD || 'TAPairing2023!',
+      user: process.env.EMAIL_USER || 'your_email@gmail.com',
+      pass: process.env.EMAIL_PASSWORD || 'your_email_password',
     },
-    from: process.env.EMAIL_FROM || 'noreply@tapairing.com',
+    from: process.env.EMAIL_FROM || 'noreply@example.com',
   },
 };

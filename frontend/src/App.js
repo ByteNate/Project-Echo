@@ -10,9 +10,7 @@ import ClassSchedule from './pages/ClassSchedule';
 import Pairing from './pages/Pairing';
 import Substitute from './pages/Substitute';
 
-import { config } from '../config/frontend';
-console.log(config.appName);
-console.log(config.routeSettings.login);
+import { config } from './config/frontend';
 
 function App() {
   return (
@@ -20,11 +18,11 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path={config.routeSettings.home} element={<Home />} />
+          <Route path={config.routeSettings.login} element={<Login />} />
+          <Route path={config.routeSettings.register} element={<Register />} />
           <Route
-            path="/profile"
+            path={config.routeSettings.profile}
             element={
               <ProtectedRoute>
                 <Profile />
@@ -32,7 +30,7 @@ function App() {
             }
           />
           <Route
-            path="/class-schedule"
+            path={config.routeSettings.classSchedule}
             element={
               <ProtectedRoute>
                 <ClassSchedule />
@@ -40,7 +38,7 @@ function App() {
             }
           />
           <Route
-            path="/pairing"
+            path={config.routeSettings.pairing}
             element={
               <ProtectedRoute>
                 <Pairing />
@@ -48,7 +46,7 @@ function App() {
             }
           />
           <Route
-            path="/substitute"
+            path={config.routeSettings.substitute}
             element={
               <ProtectedRoute>
                 <Substitute />

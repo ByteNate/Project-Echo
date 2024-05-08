@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pairingController = require('../controllers/pairingController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { authMiddleware } = require('../middleware/authMiddleware');
 
 // Generate TA-student pairings
 router.post('/', authMiddleware, pairingController.generatePairings);

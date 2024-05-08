@@ -21,10 +21,10 @@ exports.registerUser = async (req, res) => {
       password,
     });
 
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ user: newUser });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to register user' });
+    res.status(500).json({ error: 'Failed to register user. Please try again.' });
   }
 };
 
@@ -37,7 +37,11 @@ exports.loginUser = async (req, res) => {
     res.status(200).json({ token });
   } catch (error) {
     console.error(error);
-    res.status(401).json({ error: 'Invalid email or password' });
+    if (error.message === 'User not found' || error.message === 'Invalid password') {
+      res.status(401).json({ error: 'Invalid email or password' });
+    } else {
+      res.status(500).json({ error: 'Failed to log in. Please try again.' });
+    }
   }
 };
 
@@ -48,7 +52,7 @@ exports.getUserProfile = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to retrieve user profile' });
+    res.status(500).json({ error: 'Failed to retrieve user profile. Please try again.' });
   }
 };
 
@@ -66,7 +70,7 @@ exports.updateUserProfile = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update user profile' });
+    res.status(500).json({ error: 'Failed to update user profile. Please try again.' });
   }
 };
 
@@ -82,7 +86,7 @@ exports.updateUserAvailability = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update user availability' });
+    res.status(500).json({ error: 'Failed to update user availability. Please try again.' });
   }
 };
 
@@ -98,6 +102,6 @@ exports.updateUserPreferences = async (req, res) => {
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update user preferences' });
+    res.status(500).json({ error: 'Failed to update user preferences. Please try again.' });
   }
 };

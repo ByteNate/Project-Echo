@@ -10,6 +10,7 @@ exports.createSubstitute = async (substituteData) => {
     await substitute.save();
     return substitute;
   } catch (error) {
+    console.error('Failed to create substitute:', error);
     throw new Error('Failed to create substitute');
   }
 };
@@ -20,7 +21,8 @@ exports.getAllSubstitutes = async () => {
     const substitutes = await Substitute.find();
     return substitutes;
   } catch (error) {
-    throw new Error('Failed to get substitutes');
+    console.error('Failed to retrieve substitutes:', error);
+    throw new Error('Failed to retrieve substitutes');
   }
 };
 
@@ -33,7 +35,8 @@ exports.getSubstituteById = async (substituteId) => {
     }
     return substitute;
   } catch (error) {
-    throw new Error('Failed to get substitute');
+    console.error('Failed to retrieve substitute:', error);
+    throw new Error('Failed to retrieve substitute');
   }
 };
 
@@ -48,6 +51,7 @@ exports.updateSubstitute = async (substituteId, updatedData) => {
     }
     return substitute;
   } catch (error) {
+    console.error('Failed to update substitute:', error);
     throw new Error('Failed to update substitute');
   }
 };
@@ -61,6 +65,7 @@ exports.deleteSubstitute = async (substituteId) => {
     }
     return substitute;
   } catch (error) {
+    console.error('Failed to delete substitute:', error);
     throw new Error('Failed to delete substitute');
   }
 };
@@ -80,6 +85,10 @@ exports.substituteSearch = async (classScheduleId, date) => {
       date: date,
     });
 
+    if (!pairing) {
+      throw new Error('Pairing not found');
+    }
+
     // Find available TAs who are not assigned to the pairing
     const availableSubstitutes = await User.find({
       role: 'TA',
@@ -89,6 +98,7 @@ exports.substituteSearch = async (classScheduleId, date) => {
 
     return availableSubstitutes;
   } catch (error) {
+    console.error('Failed to search for substitutes:', error);
     throw new Error('Failed to search for substitutes');
   }
 };

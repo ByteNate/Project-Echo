@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const classScheduleController = require('../controllers/classScheduleController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { authMiddleware } = require('../middleware/authMiddleware');
 
 // Get all class schedules
 router.get('/', authMiddleware, classScheduleController.getAllClassSchedules);
