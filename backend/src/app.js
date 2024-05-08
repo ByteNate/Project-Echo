@@ -19,7 +19,10 @@ const app = express();
 mongoose.set('strictQuery', false);
 
 // Connect to MongoDB
-connectDB();
+connectDB().catch((error) => {
+  console.error('Failed to connect to MongoDB:', error);
+  process.exit(1);
+});
 
 // Middleware
 app.use(express.json());
