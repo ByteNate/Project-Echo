@@ -4,15 +4,15 @@
     "description": "This system is engineered for dynamic resource alignment and contingency planning.",
     "main": "index.js",
     "scripts": {
-        "start": "node backend/src/app.js",
-        "dev": "nodemon index.js",
-        "build": "cd client && npm run build",
-        "client": "cd client && npm start",
-        "server": "nodemon index.js",
-        "dev:client": "cd client && npm run dev",
-        "dev:server": "nodemon index.js",
-        "dev:concurrent": "concurrently \"npm run dev:server\" \"npm run dev:client\""
-    },
+        "start": "node backend/src/app.js",  // Correct if app.js is your backend entry point
+        "dev": "nodemon backend/src/app.js", // Changed to reflect the actual path if app.js is the entry
+        "build": "cd client && npm run build", // Correct, assumes npm run build is set in the client's package.json
+        "client": "cd client && npm start", // Correct, starts the frontend development server
+        "server": "nodemon backend/src/app.js", // Changed to reflect the actual path
+        "dev:client": "cd client && npm run dev", // Correct, check if 'npm run dev' is defined in client's package.json
+        "dev:server": "nodemon backend/src/app.js", // Ensure this path is correct
+        "dev:concurrent": "concurrently \"npm run dev:server\" \"npm run dev:client\"" // Correct, uses concurrently to run both
+    },    
     "repository": {
         "type": "git",
         "url": "https://github.com/ByteNate/Project-Echo"
